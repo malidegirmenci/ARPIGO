@@ -22,7 +22,7 @@ Bu bir RPG oyundur.
 - Bölüm Sonu Canavarı: Shadow Griffin
 #### Terkedilmiş Şehir
 - Yaratık: Vortex 
-- Bölüm Sonu Canavarı: Vel'koz 
+- Bölüm Sonu Canavarı: Vel'koz
 #### Orion Krallığı
 - Yaratık: Yaugai Chief
 - Bölüm Sonu Canavarı: Kral Erlang  
@@ -50,7 +50,6 @@ Bu bir RPG oyundur.
 #### Warlock
 - Sağlık:50 Zırh:25 Kritik Oranı: 1 Saldırı Gücü: 80
 - Defansı Yok Sayar
-
 
 ### Yaratıklar
 - Manter 
@@ -86,4 +85,13 @@ Bu bir RPG oyundur.
 - Hafif Zırh | Okçu & Suikastçi 
 - Kaftan | Büyücü | Şifacı | Zehirci
 
+### Metotlar
 
+#### show_info()
+- Karakterin bilgilerini ekrana yansıtır
+#### damage()
+- Hedefe verilen hasarı hesaplar
+
+
+# Notlar
+- Weapon sınıfı içerisinde attack_speed attr yaz
