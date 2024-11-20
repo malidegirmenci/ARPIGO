@@ -56,32 +56,42 @@ class Character(ABC):
 # Player Characters
 class SwordMaster(Character):
     def __init__(self, name):
-        dual_swords = Weapon('Dual Swords', 65, 100, 1.7)
-        super().__init__(name, 80, 30,  15, dual_swords)
+        dual_swords = Weapon('Dual Swords', 35, 100, 1.7)
+        heavy_armor = Armor('Heavy Armor', 65, 100, 1.7)
+        super().__init__(name, 80, 30,  15, dual_swords, heavy_armor)
+
+    def special_skill(self):
+        return self.get_attack_power() * 2
 
 class Archer(Character):
-    def __init__(self, name, weapon):
-        super().__init__(name, 70, 25,  10, weapon)
+    def __init__(self, name):
+        bow = Weapon('Bow', 40, 100, 1.6)
+        super().__init__(name, 70, 25,  10, bow)
 
 class Wizard(Character):
     def __init__(self, name, weapon):
-        super().__init__(name, 50, 15, 5, weapon)
+        staff = Weapon('Staff', 40, 100, 1)
+        super().__init__(name, 50, 15, 5, staff)
 
 class Cleric(Character):
     def __init__(self, name):
-        super().__init__(name, 60, 40, 70)
+        magic_wand = Weapon('Magic Wand', 60, 100, 1)
+        super().__init__(name, 60, 40, 10, magic_wand)
 
 class Assassin(Character):
     def __init__(self, name, ):
-        super().__init__(name, 75, 30, 60)
+        dagger = Weapon('Dagger', 50, 100, 1.8)
+        super().__init__(name, 75, 30, 60, dagger)
 
 class Tank(Character):
     def __init__(self, name):
-        super().__init__(name, 100, 50,  70)
+        sword = Weapon('Sword', 40, 100, 1.4)
+        super().__init__(name, 100, 50,  15, sword)
 
 class Warlock(Character):
     def __init__(self, name,):
-        super().__init__(name,50, 25, 80)
+        dark_staff = Weapon('Dark staff', 80, 100, 1)
+        super().__init__(name,50, 25, 10, dark_staff)
 
 #--------------------
 
