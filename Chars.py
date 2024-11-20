@@ -1,16 +1,17 @@
 from abc import ABC, abstractmethod
 
-from Items import Weapon
+from Items import Weapon, Armor
 
 
 # Parent Abstract Class
 class Character(ABC):
-    def __init__(self, name, health, armor, attack_power, weapon):
+    def __init__(self, name, health, defence, attack_power, weapon, armor):
         self.__name = name
         self.__health = health
-        self.__armor = armor
+        self.__defence = defence
         self.__attack_power = attack_power
         self.__weapon = weapon
+        self.__armor = armor
 
     def get_name(self):
         return self.__name
@@ -23,6 +24,13 @@ class Character(ABC):
 
     def set_health(self, health):
         self.__health = health
+
+    def get_defence(self):
+        total_defence = self.__defence + self.__armor.get_defence()
+        return total_defence
+
+    def set_defence(self, defence):
+        self.__defence = defence
 
     def get_armor(self):
         return self.__armor
@@ -44,7 +52,7 @@ class Character(ABC):
         self.__weapon = weapon
 
     def show_info(self):
-        print(f'Name:{self.__name}\nHealth: {self.__health}\nArmor:{self.__armor}\nAttack Power:{self.get_attack_power()}')
+        print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
 
     def special_skill(self):
