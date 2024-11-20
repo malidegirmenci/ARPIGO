@@ -142,10 +142,13 @@ class Monster(ABC):
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
 # Monster Characters
-class GeneralMonster(Character):
-    def __init__(self, name, health, armor,  attack_power):
-        super().__init__(name,health,armor, attack_power)
+class GeneralMonster(Monster):
+    def __init__(self, name, health, defence, attack_power):
+        super().__init__(name,health,defence, attack_power)
 
-class UniqueMonster(Character):
-    def __init__(self, name, health, armor, attack_power):
-        super().__init__(name,health,armor, attack_power)
+class UniqueMonster(Monster):
+    def __init__(self, name, health, defence, attack_power):
+        super().__init__(name,health,defence, attack_power)
+
+    def special_skill(self):
+        pass
