@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from Items import Weapon, Armor
 
+import random
 
 # Parent Abstract Class
 class Character(ABC):
@@ -59,7 +60,11 @@ class Character(ABC):
         pass
 
     def damage(self, target):
-        return self.__attack_power - target.__armor
+        base_damage = self.get_attack_power() - target.get_defence()
+        min_damage = base_damage - 10
+        max_damage = base_damage + 10
+        last_damage = random.randint(min_damage, max_damage)
+        return last_damage
 
 # Player Characters
 class SwordMaster(Character):
