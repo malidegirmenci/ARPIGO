@@ -55,7 +55,7 @@ class Character(ABC):
     def show_info(self):
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
-
+    @abstractmethod
     def special_skill(self):
         pass
 
