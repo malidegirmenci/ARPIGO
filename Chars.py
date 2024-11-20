@@ -107,6 +107,39 @@ class Warlock(Character):
         super().__init__(name,50, 25, 10, dark_staff)
 
 #--------------------
+class Monster(ABC):
+    def __init__(self, name, health, defence, attack_power):
+        self.__name = name
+        self.__health = health
+        self.__defence = defence
+        self.__attack_power = attack_power
+
+    def get_name(self):
+        return self.__name
+
+    def set_name(self, name):
+        self.__name = name
+
+    def get_health(self):
+        return self.__health
+
+    def set_health(self, health):
+        self.__health = health
+
+    def get_defence(self):
+        return self.__defence
+
+    def set_defence(self, defence):
+        self.__defence = defence
+
+    def get_attack_power(self):
+        return self.__attack_power
+
+    def set_attack_power(self, attack_power):
+        self.__attack_power = attack_power
+
+    def show_info(self):
+        print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
 # Monster Characters
 class GeneralMonster(Character):
