@@ -21,6 +21,8 @@ class Character(ABC):
         self.__name = name
 
     def get_health(self):
+        if self.__health < 0:
+            return 0
         return self.__health
 
     def set_health(self, health):
@@ -64,12 +66,14 @@ class Character(ABC):
         min_damage = base_damage - 10
         max_damage = base_damage + 10
         last_damage = random.randint(min_damage, max_damage)
-        return last_damage
+        if last_damage >= 0:
+            return last_damage
+        return 0
 
 # Player Characters
 class SwordMaster(Character):
     def __init__(self, name):
-        dual_swords = Weapon('Dual Swords', 35, 100, 1.7)
+        dual_swords = Weapon('Dual Swords', 85, 100, 1.7)
         heavy_armor = Armor('Heavy Armor', 65, 100, 1.7)
         super().__init__(name, 80, 30,  15, dual_swords, heavy_armor)
 
@@ -121,6 +125,8 @@ class Monster(ABC):
         self.__name = name
 
     def get_health(self):
+        if self.__health < 0:
+            return 0
         return self.__health
 
     def set_health(self, health):
@@ -140,6 +146,15 @@ class Monster(ABC):
 
     def show_info(self):
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
+
+    def damage(self, target):
+        base_damage = self.get_attack_power() - target.get_defence()
+        min_damage = base_damage - 10
+        max_damage = base_damage + 10
+        last_damage = random.randint(min_damage, max_damage)
+        if last_damage > 0:
+            return last_damage
+        return 0
 
 # Monster Characters
 class GeneralMonster(Monster):
