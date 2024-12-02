@@ -13,6 +13,7 @@ class Character(ABC):
         self.__attack_power = attack_power
         self.__weapon = weapon
         self.__armor = armor
+        self.__coin = 0
 
     def get_name(self):
         return self.__name
@@ -54,6 +55,12 @@ class Character(ABC):
     def set_weapon(self, weapon):
         self.__weapon = weapon
 
+    def get_coin(self):
+        return self.__coin
+
+    def set_coin(self, coin):
+        self.__coin = coin
+
     def show_info(self):
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
@@ -82,8 +89,6 @@ class SwordMaster(Character):
 
 class Archer(Character):
     def __init__(self, name):
-        bow = Weapon('Bow', 40, 100, 1.6)
-        super().__init__(name, 70, 25,  10, bow)
         bow = Weapon('Bow', 90, 100, 1.6)
         armor = Armor('Light Armor', 65, 100, 1.7)
         super().__init__(name, 70, 25,  10, bow, armor)
