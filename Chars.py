@@ -84,12 +84,22 @@ class Archer(Character):
     def __init__(self, name):
         bow = Weapon('Bow', 40, 100, 1.6)
         super().__init__(name, 70, 25,  10, bow)
+        bow = Weapon('Bow', 90, 100, 1.6)
+        armor = Armor('Light Armor', 65, 100, 1.7)
+        super().__init__(name, 70, 25,  10, bow, armor)
+
+    def special_skill(self):
+        return self.get_attack_power() + (self.get_attack_power() * 1.45)
 
 class Wizard(Character):
-    def __init__(self, name, weapon):
+    def __init__(self, name):
         staff = Weapon('Staff', 40, 100, 1)
-        super().__init__(name, 50, 15, 5, staff)
+        armor = Armor('Robe', 65, 100, 1.7)
+        super().__init__(name, 50, 15, 5, staff, armor)
 
+    def special_skill(self):
+        return self.get_attack_power() * 3
+'''
 class Cleric(Character):
     def __init__(self, name):
         magic_wand = Weapon('Magic Wand', 60, 100, 1)
