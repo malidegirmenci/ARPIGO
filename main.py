@@ -1,70 +1,35 @@
-from Chars import Tank, Character, GeneralMonster, UniqueMonster, SwordMaster, Archer
-from Helper import show_message
-from Items import Weapon, Armor
-import random
-print('!!!ARPIGO!!!')
-print('New Generation RPG Game')
+from EngineFuncs import create_char, camp
+from Helper import centered_title, show_menu, show_message, loading_bar
+from UserSystem import login, user_menu_list, register
+player = None
+is_logged_in = False
+while True:
+    show_menu(user_menu_list, 'ARPIGO')
+    choice = input('Yapmak istediğiniz eylemi seçiniz : ')
+    if choice == '1':
+        is_logged_in = login()
+        #print(is_logged_in)
+        if is_logged_in:
+            if player:
+                show_message(f'Hoşgeldin maceracı {player.get_name()}. Kaldığın yerden maceraya devam et.', )
+            else:
+                show_message('Hemen bir maceracı oluştur ve serüvene katıl.')
+                player = create_char()
+
+    elif choice == '2':
+        register()
+    elif choice == '3':
+        show_message('Yolun açık olsun savaşçı. \nÇıkış yapılıyor.')
+        loading_bar()
+        break
 '''
-manter = GeneralMonster('Manter', 100, 40,  60)
-manter.show_info()
-
-poisonIvy = UniqueMonster('Poison Ivy', 250, 60, 100)
-poisonIvy.show_info()
-
-player = SwordMaster('Mahmut')
-player.show_info()
-
-#player2 = Archer('Nedife', 70, 25,1.6, 50)
-player2 = Archer('Nedife')
-player2.show_info()
-
-print(player2.damage(manter))
-
-show_message(f'{player2.get_name()}, {manter.get_name()} {player2.damage(manter)} hasar verdi. ')
-
-clericRod = Weapon('Cleric Rod', 120, 100, 1)
-
-swordMaster.show_info()
-swordMaster.get_weapon().show_weapon()
-
-swordMaster.set_weapon(clericRod)
-swordMaster.show_info()
-swordMaster.get_weapon().show_weapon()
-
-swordMaster = SwordMaster('Kamil')
-swordMaster.show_info()
-swordMaster.get_weapon().show_weapon()
-swordMaster.get_armor().show_armor()
-
-swordMaster.set_armor()
-swordMaster.get_armor().show_armor()
-
-swordMaster.special_skill()
+player = create_char()
+show_menu(['Kamp Alanı','Kayıp Ormanlar', 'Gölge Dağı', 'Terkedilmiş Şehir', 'Orion Krallığı'],'CHAPTER 1')
+choice = input('Gitmek istediğiniz yeri seçiniz: ')
+print(player.get_health())
+if choice == '1':
+    camp(player)
+elif choice == '2':
+    show_message('Kayıp ormanlar')
 '''
-swordMaster = SwordMaster('Kamil')
-swordMaster.show_info()
-manter = GeneralMonster('Manter', 100, 10,  60)
-manter.show_info()
 
-#print(f'{swordMaster.get_name()}, {manter.get_name()}e {swordMaster.damage(manter)} hasar verdi.')
-
-def fight(user, enemy):
-    order = random.randint(1,2)
-    print('order: ', order)
-    while True:
-        if enemy.get_health() <= 0 or user.get_health() <= 0:
-            break
-        if order == 1:
-            if user.get_health() > 0:
-                user_damage = user.damage(enemy)
-                enemy.set_health(enemy.get_health() - user_damage)
-                print(f'{user.get_name()}, {enemy.get_name()}e {user_damage} hasar verdi.')
-                print(f'User Health: {user.get_health()} | Enemy Health: {enemy.get_health()}')
-        if order == 2:
-            if enemy.get_health() > 0:
-                enemy_damage = enemy.damage(user)
-                user.set_health(user.get_health() - enemy_damage)
-                print(f'{enemy.get_name()}, {user.get_name()}e {enemy.damage(user)} hasar verdi.')
-                print(f'Enemy Health: {enemy.get_health()} | User Health: {user.get_health()}')
-
-fight(swordMaster, manter)

@@ -8,6 +8,7 @@ Bu bir RPG oyundur.
 #### Kamp
 - Can tamamen dolar
 - Envantere bakma
+- Eşya Deposu
 - Eşya değişimi sadece kampta olur
 
 #### Gezgin Gepetto
@@ -91,7 +92,10 @@ Bu bir RPG oyundur.
 - Karakterin bilgilerini ekrana yansıtır
 #### damage()
 - Hedefe verilen hasarı hesaplar
-
+#### fight()
+- Karakter ile düşman arasındaki dövüşü yapar
+### create_char()
+- Karakter oluşturur
 
 # Notlar
 - Weapon sınıfı içerisinde attack_speed attr yaz

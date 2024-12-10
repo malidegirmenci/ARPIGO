@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 
-from Items import Weapon, Armor
+from Helper import show_message
+from Items import Weapon, Armor, hands, basic_armor
 
 import random
 
 # Parent Abstract Class
 class Character(ABC):
-    def __init__(self, name, health, defence, attack_power, weapon, armor):
+    def __init__(self, name, health, defence, attack_power, weapon, armor, type_of_char):
         self.__name = name
         self.__health = health
         self.__defence = defence
@@ -14,6 +15,9 @@ class Character(ABC):
         self.__weapon = weapon
         self.__armor = armor
         self.__coin = 0
+        self.__type_of_char = type_of_char
+        self.__inventory = []
+        self.__quest_items = []
 
     def get_name(self):
         return self.__name
@@ -61,7 +65,27 @@ class Character(ABC):
     def set_coin(self, coin):
         self.__coin = coin
 
+    def get_type_of_char(self):
+        return self.__type_of_char
+
+    def get_inventory(self):
+        return self.__inventory
+
+    def get_quest_items(self):
+        return self.__quest_items
+
+    def add_quest_items(self, quest_item):
+        self.__quest_items.append(quest_item)
+
+    def add_item_in_inventory(self, item):
+        self.__inventory.append(item)
+        show_message(f'{self.get_name()} envanterine {item.get_name()} ekledi')
+
+    def remove_item_in_inventory(self, item):
+        self.__inventory.remove(item)
+
     def show_info(self):
+        print(f'{self.get_type_of_char()}')
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
     @abstractmethod
@@ -77,12 +101,40 @@ class Character(ABC):
             return last_damage
         return 0
 
+    def take_weapon(self, weapon):
+        self.set_weapon(weapon)
+        print(f'{weapon.get_name()} [Fışşınk] kuşanıldı.')
+
+    def remove_weapon(self):
+        print(f'{self.get_weapon().get_name()} çıkarıldı')
+        self.set_weapon(hands)
+
+    def take_armor(self, armor):
+        self.set_armor(armor)
+        print(f'{armor.get_name()} [Fışşınk] kuşanıldı.')
+
+    def remove_armor(self):
+        print(f'{self.get_armor().get_name()} çıkarıldı')
+        self.set_armor(basic_armor)
+
+    def show_inventory(self):
+        for item in self.__inventory:
+            if item.get_type_of_item() == 'armor':
+                item.show_armor()
+            elif item.get_type_of_item() == 'weapon':
+                item.show_weapon()
+            else:
+                print('Invalid key')
+
 # Player Characters
 class SwordMaster(Character):
     def __init__(self, name):
         dual_swords = Weapon('Dual Swords', 85, 100, 1.7)
+        dual_swords.set_is_equipped(True)
         heavy_armor = Armor('Heavy Armor', 65, 100, 1.7)
-        super().__init__(name, 80, 30,  15, dual_swords, heavy_armor)
+        heavy_armor.set_is_equipped(True)
+
+        super().__init__(name, 80, 30,  15, dual_swords, heavy_armor, 'Sword Master')
 
     def special_skill(self):
         return self.get_attack_power() * 2
@@ -91,7 +143,7 @@ class Archer(Character):
     def __init__(self, name):
         bow = Weapon('Bow', 90, 100, 1.6)
         armor = Armor('Light Armor', 65, 100, 1.7)
-        super().__init__(name, 70, 25,  10, bow, armor)
+        super().__init__(name, 70, 25,  10, bow, armor, 'Archer')
 
     def special_skill(self):
         return self.get_attack_power() + (self.get_attack_power() * 1.45)
@@ -100,7 +152,7 @@ class Wizard(Character):
     def __init__(self, name):
         staff = Weapon('Staff', 40, 100, 1)
         armor = Armor('Robe', 65, 100, 1.7)
-        super().__init__(name, 50, 15, 5, staff, armor)
+        super().__init__(name, 50, 15, 5, staff, armor, 'Wizard')
 
     def special_skill(self):
         return self.get_attack_power() * 3
@@ -124,14 +176,15 @@ class Warlock(Character):
     def __init__(self, name,):
         dark_staff = Weapon('Dark staff', 80, 100, 1)
         super().__init__(name,50, 25, 10, dark_staff)
-
+'''
 #--------------------
 class Monster(ABC):
-    def __init__(self, name, health, defence, attack_power):
+    def __init__(self, name, health, defence, attack_power, reward):
         self.__name = name
         self.__health = health
         self.__defence = defence
         self.__attack_power = attack_power
+        self.__reward = reward
 
     def get_name(self):
         return self.__name
@@ -159,6 +212,9 @@ class Monster(ABC):
     def set_attack_power(self, attack_power):
         self.__attack_power = attack_power
 
+    def get_reward(self):
+        return self.__reward
+
     def show_info(self):
         print(f'Name:{self.get_name()}\nHealth: {self.get_health()}\nDefence:{self.get_defence()}\nAttack Power:{self.get_attack_power()}')
 
@@ -173,12 +229,16 @@ class Monster(ABC):
 
 # Monster Characters
 class GeneralMonster(Monster):
-    def __init__(self, name, health, defence, attack_power):
-        super().__init__(name,health,defence, attack_power)
+    def __init__(self, name, health, defence, attack_power, reward):
+        super().__init__(name,health,defence, attack_power, reward)
 
 class UniqueMonster(Monster):
-    def __init__(self, name, health, defence, attack_power):
-        super().__init__(name,health,defence, attack_power)
+    def __init__(self, name, health, defence, attack_power, reward, quest_item):
+        super().__init__(name,health,defence, attack_power, reward)
+        self.__quest_item = quest_item
+
+    def get_quest_item(self):
+        return self.__quest_item
 
     def special_skill(self):
         pass
